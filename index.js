@@ -5,15 +5,18 @@ const firebaseConfig = {
   projectId: "my-way-clt-2026",
 };
 
-// ✅ Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+// ✅ Initialize Firebase ONLY ONCE
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
 const db = firebase.firestore();
 
-// ✅ Wait until page loads
-window.onload = function () {
+// ✅ Wait for page to fully load
+window.onload = () => {
+  const btn = document.getElementById("requestRide");
 
-  document.getElementById("requestRide").onclick = async function () {
-
+  btn.onclick = async () => {
     const pickup = document.getElementById("pickup").value;
     const dropoff = document.getElementById("dropoff").value;
 
@@ -22,16 +25,17 @@ window.onload = function () {
       return;
     }
 
-    // ✅ Save Ride
+    // ✅ Save Ride Request
     await db.collection("rides").add({
-      pickup: pickup,
-      dropoff: dropoff,
+      pickup,
+      dropoff,
       status: "Pending",
       createdAt: new Date(),
     });
 
-    // ✅ Redirect
+    alert("Ride Requested!");
+
+    // ✅ Go to Status Page
     window.location.href = "status.html";
   };
-
 };
