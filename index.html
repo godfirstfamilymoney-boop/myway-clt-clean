@@ -5,30 +5,27 @@
   <title>MyWay CLT</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- ✅ CSS MUST BE HERE -->
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
   <div class="card">
-
-    <img src="logo.png" class="logo" />
-
     <h1>MyWay CLT</h1>
-    <p class="subtitle">Charlotte Ride Share MVP 🌊</p>
+    <p>Charlotte Ride Share MVP 🚘</p>
 
-    <input id="pickup" placeholder="Enter Pickup Location" required />
-    <input id="dropoff" placeholder="Enter Dropoff Location" required />
+    <input id="pickup" placeholder="Enter Pickup Location" />
+    <input id="dropoff" placeholder="Enter Dropoff Location" />
 
-    <button id="requestRide" class="btn"> Request Ride</button>
-
+    <button id="requestRide" class="btn">Request Ride</button>
   </div>
 
-  <!-- ✅ JS MUST BE HERE -->
- 
-<script src="index.js"></script>
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <!-- Main Script -->
+  <script src="index.js"></script>
+
 </body>
-
 </html>
-
