@@ -1,3 +1,4 @@
+// ✅ Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyD88ZxhCOxPs1IFzITYAGO0gpIyp4tLzr8",
   authDomain: "my-way-clt-2026.firebaseapp.com",
@@ -7,6 +8,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
+// ✅ Grab HTML Elements
 const statusBox = document.getElementById("statusBox");
 const rideStatus = document.getElementById("rideStatus");
 
@@ -23,11 +25,13 @@ db.collection("rides")
 
     const ride = snapshot.docs[0].data();
 
+    // Show Ride Info
     statusBox.innerHTML = `
       <b>Pickup:</b> ${ride.pickup}<br>
       <b>Dropoff:</b> ${ride.dropoff}
     `;
 
+    // Show Status Text
     rideStatus.innerText = ride.status;
 
     // Reset dots
