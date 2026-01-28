@@ -6,6 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Firebase CDN -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 
 <body>
@@ -13,19 +17,12 @@
   <div class="card">
 
     <img src="logo.png" class="logo" />
-
     <h1>Ride Status 🚘</h1>
 
-    <!-- ✅ PUT IT RIGHT HERE -->
-    <h2>Finding Driver...</h2>
-    <p id="statusText">Searching...</p>
+    <!-- ✅ Ride Info -->
+    <div id="statusBox" class="statusBox">
+      Loading ride...
+    </div>
 
-    <a href="index.html" class="btn">Back Home</a>
+    <!-- ✅ Current Status Text -->
 
-  </div>
-
-  <!-- ✅ Script always goes at the bottom -->
-  <script src="status.js"></script>
-
-</body>
-</html>
