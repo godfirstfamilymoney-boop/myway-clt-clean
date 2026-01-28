@@ -1,26 +1,33 @@
-// Firebase Config
+// ✅ Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyD88ZxhCOxPs1IFzITYAGO0gpIyp4tLzr8",
   authDomain: "my-way-clt-2026.firebaseapp.com",
   projectId: "my-way-clt-2026",
 };
 
+// ✅ Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// Button Click
-document.getElementById("requestRide").onclick = function () {
+// ✅ Request Ride Button
+document.getElementById("requestRide").onclick = async function () {
+  const pickup = document.getElementById("pickup").value;
+  const dropoff = document.getElementById("dropoff").value;
 
-  let pickup = document.getElementById("pickup").value;
-  let dropoff = document.getElementById("dropoff").value;
-
+  // Stop if empty
   if (!pickup || !dropoff) {
-    alert("Enter both pickup and dropoff locations!");
+    alert("Please enter both pickup and dropoff locations.");
     return;
   }
 
-  alert("Ride Requested ✅");
+  // ✅ Save ride to Firestore
+  await db.collection("rides").add({
+    pickup: pickup,
+    dropoff: dropoff,
+    status: "Pending",
+    createdAt: new Date(),
+  });
 
-  // Send user to status page
+  // ✅ Go to Status Page
   window.location.href = "status.html";
 };
