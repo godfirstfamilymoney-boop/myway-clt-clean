@@ -1,32 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
   <title>MyWay CLT</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="stylesheet" href="style.css" />
+  <!-- Firebase MUST load first -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <div class="card">
-    <h1>MyWay CLT</h1>
-    <p>Charlotte Ride Share MVP 🚘</p>
+  <button id="requestRide">Request Ride</button>
 
-    <input id="pickup" placeholder="Enter Pickup Location" />
-    <input id="dropoff" placeholder="Enter Dropoff Location" />
+  <!-- Your code loads LAST -->
+  <script src="index.js"></script>
 
-   <button id="requestRide">Request Ride</button>
-  </div>
-
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
-  <!-- Main Script -->
-
-<script src="index.js"></script>
 </body>
 </html>
-
