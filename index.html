@@ -5,30 +5,33 @@
   <title>MyWay CLT</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- ✅ Firebase MUST load first -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- ✅ Firebase FIRST -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
-  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
   <div class="card">
+    <img src="logo.png" class="logo" />
+
     <h1>MyWay CLT</h1>
+    <p>Charlotte Ride Share MVP 🚗</p>
 
     <input id="pickup" placeholder="Enter Pickup Location" />
     <input id="dropoff" placeholder="Enter Dropoff Location" />
 
     <button id="requestRide">Request Ride</button>
-
-    <p id="msg"></p>
   </div>
 
-  <!-- ✅ Your JS loads LAST -->
+  <!-- ✅ index.js LAST -->
   <script src="index.js"></script>
 
 </body>
 </html>
+
+
 
 
