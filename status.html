@@ -1,28 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <title>MyWay CLT - Ride Status</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Status</title>
 
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- Firebase CDN -->
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 
 <body>
 
-  <div class="card">
+  <h2>Finding Driver...</h2>
+  <p id="rideStatus">Pending...</p>
 
-    <img src="logo.png" class="logo" />
-    <h1>Ride Status 🚘</h1>
-
-    <!-- ✅ Ride Info -->
-    <div id="statusBox" class="statusBox">
-      Loading ride...
-    </div>
-
-    <!-- ✅ Current Status Text -->
-
+  <script src="status.js"></script>
+</body>
+</html>
