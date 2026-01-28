@@ -9,26 +9,18 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 // Button Click
-document.getElementById("requestRide").onclick = async () => {
-  const pickup = document.getElementById("pickup").value;
-  const dropoff = document.getElementById("dropoff").value;
+document.getElementById("requestRide").onclick = function () {
+
+  let pickup = document.getElementById("pickup").value;
+  let dropoff = document.getElementById("dropoff").value;
 
   if (!pickup || !dropoff) {
-    alert("Enter pickup + dropoff");
+    alert("Enter both pickup and dropoff locations!");
     return;
   }
 
-  // Create Ride in Firestore
-  const rideRef = await db.collection("rides").add({
-    pickup,
-    dropoff,
-    status: "Pending",
-    createdAt: new Date(),
-  });
+  alert("Ride Requested ✅");
 
-  // Save rideId
-  localStorage.setItem("rideId", rideRef.id);
-
-  // Go to Status Page
+  // Send user to status page
   window.location.href = "status.html";
 };
