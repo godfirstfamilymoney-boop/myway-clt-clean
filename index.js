@@ -1,3 +1,5 @@
+alert("index.js is running ✅");
+
 // ✅ Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyD88ZxhCOxPs1IFzITYAGO0gpIyp4tLzr8",
@@ -39,3 +41,4 @@ window.onload = () => {
     window.location.href = "status.html";
   };
 };
+
