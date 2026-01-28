@@ -1,3 +1,5 @@
+alert("index.js is connected!");
+
 // ✅ Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyD88ZxhCOxPs1IFzITYAGO0gpIyp4tLzr8",
@@ -31,3 +33,4 @@ document.getElementById("requestRide").onclick = async function () {
   // ✅ Go to Status Page
   window.location.href = "status.html";
 };
+
