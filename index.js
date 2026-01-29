@@ -1,5 +1,3 @@
-✅ NOW FIX index.js (THIS IS THE REAL ISSUE)
-Replace your entire index.js with this:
 // ✅ Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyD88ZxhCOxPs1IFzITYAGO0gpIyp4tLzr8",
@@ -7,28 +5,33 @@ const firebaseConfig = {
   projectId: "my-way-clt-2026",
 };
 
-// ✅ Initialize Firebase ONLY ONCE
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// ✅ Button Click Redirect Test
-document.getElementById("requestRide").onclick = async () => {
-  const pickup = document.getElementById("pickup").value;
-  const dropoff = document.getElementById("dropoff").value;
+// ✅ Wait until page loads FIRST
+window.onload = function () {
 
-  if (!pickup || !dropoff) {
-    alert("Enter pickup and dropoff!");
-    return;
-  }
+  // Button Click
+  document.getElementById("requestRide").onclick = async () => {
 
-  // ✅ Save ride to Firestore
-  await db.collection("rides").add({
-    pickup: pickup,
-    dropoff: dropoff,
-    status: "Pending",
-    createdAt: new Date(),
-  });
+    const pickup = document.getElementById("pickup").value;
+    const dropoff = document.getElementById("dropoff").value;
 
-  // ✅ Redirect
-  window.location.href = "status.html";
+    if (!pickup || !dropoff) {
+      alert("Enter pickup + dropoff!");
+      return;
+    }
+
+    // ✅ Save Ride in Firestore
+    await db.collection("rides").add({
+      pickup: pickup,
+      dropoff: dropoff,
+      status: "Pending",
+      createdAt: new Date(),
+    });
+
+    // ✅ Redirect to Status Page
+    window.location.href = "status.html";
+  };
+
 };
