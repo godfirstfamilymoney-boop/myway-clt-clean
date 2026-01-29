@@ -2,9 +2,9 @@ alert("index.js is running");
 
 // ✅ Firebase Config
 const firebaseConfig = {
-  apiKey: "AIzaSyD88ZxhCOxPs1IFzITYAGO0gpIyp4tLzr8",
-  authDomain: "my-way-clt-2026.firebaseapp.com",
-  projectId: "my-way-clt-2026",
+  apiKey: "AIzaSyCbSpg1Xh5Cg9fGNgO-tsw__O8Y7VDT_HM",
+  authDomain: "myway-clt-final.firebaseapp.com",
+  projectId: "myway-clt-final",
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -20,5 +20,6 @@ window.onload = function () {
 };
 
 };
+
 
 
