@@ -3,12 +3,12 @@
 // ===============================
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD88ZxhCOxPs1IFzITYAGO0gpIyp4tLzr8",
-  authDomain: "my-way-clt-2026.firebaseapp.com",
-  projectId: "my-way-clt-2026",
-  storageBucket: "my-way-clt-2026.firebasestorage.app",
-  messagingSenderId: "787144518837",
-  appId: "1:787144518837:web:53f10cf593b7296c8622fc"
+  apiKey: "AIzaSyCbSpg1Xh5Cg9fGNgO-tsw__O8Y7VDT_HM",
+  authDomain: "myway-clt-final.firebaseapp.com",
+  projectId: "myway-clt-final",
+  storageBucket: "myway-clt-final.firebasestorage.app",
+  messagingSenderId: "207622732846",
+  appId: "1:207622732846:web:92935a0cef94b261b773bf"
 };
 
 // ✅ Safe Init
@@ -70,4 +70,5 @@ async function loadReceipt() {
 }
 
 loadReceipt();
+
 
