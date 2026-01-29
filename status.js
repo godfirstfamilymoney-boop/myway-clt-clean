@@ -1,8 +1,11 @@
 // ✅ Firebase Config
 const firebaseConfig = {
-apiKey: "AIzaSyCbSpg1Xh5Cg9fGNgO-tsw__O8Y7VDT_HM",
+  apiKey: "AIzaSyCbSpg1Xh5Cg9fGNgO-tsw__O8Y7VDT_HM",
   authDomain: "myway-clt-final.firebaseapp.com",
   projectId: "myway-clt-final",
+  storageBucket: "myway-clt-final.firebasestorage.app",
+  messagingSenderId: "207622732846",
+  appId: "1:207622732846:web:92935a0cef94b261b773bf"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -55,4 +58,5 @@ db.collection("rides")
       dotComplete.style.background = "lime";
     }
   });
+
 
