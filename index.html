@@ -6,10 +6,9 @@
 
   <link rel="stylesheet" href="style.css" />
 
-  <!-- ✅ Firebase FIRST -->
+  <!-- ✅ Firebase Compat MUST load first -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 </head>
 
 <body>
@@ -26,14 +25,8 @@
     <button id="requestRide">Request Ride</button>
   </div>
 
-  <!-- ✅ index.js LAST -->
+  <!-- ✅ index.js MUST be last -->
   <script src="index.js"></script>
 
 </body>
 </html>
-
-
-
-
-
-
