@@ -13,6 +13,9 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
+document.getElementById("requestRide").onclick = function () {
+  alert("Button works!");
+
 // ✅ Wait until page loads FIRST
 window.onload = function () {
 
@@ -23,6 +26,7 @@ window.onload = function () {
 };
 
 };
+
 
 
 
