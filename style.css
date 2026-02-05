@@ -22,7 +22,32 @@ body {
   border-radius: 15px;
   margin-bottom: 15px;
 }
+.ride-info {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 15px;
+  background: rgba(255,255,255,0.08);
+  text-align: left;
+}
 
+.status-box {
+  margin-top: 15px;
+  text-align: left;
+}
+
+.dot {
+  height: 12px;
+  width: 12px;
+  background: gray;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.dot.active {
+  background: lime;
+  box-shadow: 0 0 10px lime;
+}
 input {
   width: 100%;
   padding: 14px;
