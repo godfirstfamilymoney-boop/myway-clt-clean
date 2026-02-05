@@ -1,1 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MyWay CLT - Driver</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+</head>
+
+<body>
+
+  <div class="card">
+    <img src="logo.png" class="logo" />
+
+    <h1>Driver Dashboard 🚘</h1>
+    <p class="subtitle">Accept the next ride request</p>
+
+    <div id="driverRideInfo" class="ride-info">
+      Loading ride request...
+    </div>
+
+    <button id="acceptRide" class="btn">Accept Ride</button>
+
+    <button id="completeRide" class="btn" style="display:none;">
+      Complete Ride 🏁
+    </button>
+
+    <a href="index.html" class="btn">Back Home</a>
+  </div>
+
+  <script src="driver.js"></script>
+</body>
+</html>
