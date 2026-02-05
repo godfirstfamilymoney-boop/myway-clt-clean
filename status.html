@@ -1,1 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MyWay CLT - Status</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+</head>
+
+<body>
+
+  <div class="card">
+    <img src="logo.png" class="logo" />
+
+    <h1>Ride Status 🚗</h1>
+    <p class="subtitle">Tracking your ride...</p>
+
+    <!-- Ride Info -->
+    <div id="statusBox" class="ride-info">
+      Loading ride...
+    </div>
+
+    <!-- Status Dots -->
+    <div class="status-box">
+      <p><span class="dot" id="dotPending"></span> Pending</p>
+      <p><span class="dot" id="dotAssigned"></span> Driver Assigned</p>
+      <p><span class="dot" id="dotCompleted"></span> Ride Completed</p>
+    </div>
+
+    <a href="index.html" class="btn">Back Home</a>
+  </div>
+
+  <script src="status.js"></script>
+</body>
+</html>
