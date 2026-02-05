@@ -1,1 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MyWay CLT - Receipt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+</head>
+
+<body>
+
+  <div class="card">
+    <img src="logo.png" class="logo" />
+
+    <h1>Ride Receipt 🧾</h1>
+    <p class="subtitle">Thanks for riding with MyWay CLT</p>
+
+    <div id="receiptBox" class="ride-info">
+      Loading receipt...
+    </div>
+
+    <a href="index.html" class="btn">Back Home</a>
+  </div>
+
+  <script src="receipt.js"></script>
+</body>
+</html>
