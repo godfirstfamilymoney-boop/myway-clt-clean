@@ -1,45 +1,49 @@
-// Firebase Config
+alert("driver.js running");
+
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyCbSpg1Xh5Cg9fGNgO-tsw__O8Y7VDT_HM",
   authDomain: "myway-clt-final.firebaseapp.com",
   projectId: "myway-clt-final",
-  storageBucket: "myway-clt-final.firebasestorage.app",
-  messagingSenderId: "207622732846",
-  appId: "1:207622732846:web:92935a0cef94b261b773bf"
 };
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// LIVE LISTEN TO RIDES
-db.collection("rides").orderBy("createdAt", "desc")
-.onSnapshot(snapshot => {
+// Load latest ride
+async function loadRide() {
+  const snapshot = await db.collection("rides")
+    .orderBy("createdAt", "desc")
+    .limit(1)
+    .get();
 
-  let html = "";
+  if (snapshot.empty) {
+    document.getElementById("rideInfo").innerText = "No rides yet";
+    return;
+  }
 
-  snapshot.forEach(doc => {
-    const ride = doc.data();
-    const id = doc.id;
+  const doc = snapshot.docs[0];
+  const ride = doc.data();
 
-    html += `
-      <div style="border:1px solid #444;padding:10px;margin:10px;border-radius:8px;">
-        <b>Pickup:</b> ${ride.pickup}<br>
-        <b>Dropoff:</b> ${ride.dropoff}<br>
-        <b>Status:</b> ${ride.status}<br><br>
+  document.getElementById("rideInfo").innerText =
+    "Pickup: " + ride.pickup +
+    "\nDropoff: " + ride.dropoff +
+    "\nStatus: " + ride.status;
 
-        <button onclick="updateRide('${id}','Driver Assigned')">Accept Ride</button>
-        <button onclick="updateRide('${id}','Completed')">Complete Ride</button>
-      </div>
-    `;
-  });
-
-  document.getElementById("ridesList").innerHTML = html;
-});
-
-
-// UPDATE RIDE STATUS
-function updateRide(id, newStatus) {
-  db.collection("rides").doc(id).update({
-    status: newStatus
-  });
+  // Save ride ID
+  window.currentRideId = doc.id;
 }
+
+loadRide();
+
+// Accept ride
+document.getElementById("acceptRide").onclick = async function () {
+  if (!window.currentRideId) return;
+
+  await db.collection("rides").doc(window.currentRideId).update({
+    status: "Driver Assigned"
+  });
+
+  alert("Ride accepted");
+  loadRide();
+};
