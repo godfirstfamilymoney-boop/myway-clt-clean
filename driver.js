@@ -1,70 +1,45 @@
-// Firebase Config (PUT YOURS)
+// Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyCbSpg1Xh5Cg9fGNgO-tsw__O8Y7VDT_HM",
   authDomain: "myway-clt-final.firebaseapp.com",
   projectId: "myway-clt-final",
+  storageBucket: "myway-clt-final.firebasestorage.app",
+  messagingSenderId: "207622732846",
+  appId: "1:207622732846:web:92935a0cef94b261b773bf"
 };
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// Elements
-const rideBox = document.getElementById("driverRideInfo");
-const acceptBtn = document.getElementById("acceptRide");
-const completeBtn = document.getElementById("completeRide");
+// LIVE LISTEN TO RIDES
+db.collection("rides").orderBy("createdAt", "desc")
+.onSnapshot(snapshot => {
 
-let latestRideId = null;
+  let html = "";
 
-// Load latest ride
-async function loadRide() {
+  snapshot.forEach(doc => {
+    const ride = doc.data();
+    const id = doc.id;
 
-  const snap = await db
-    .collection("rides")
-    .orderBy("createdAt", "desc")
-    .limit(1)
-    .get();
+    html += `
+      <div style="border:1px solid #444;padding:10px;margin:10px;border-radius:8px;">
+        <b>Pickup:</b> ${ride.pickup}<br>
+        <b>Dropoff:</b> ${ride.dropoff}<br>
+        <b>Status:</b> ${ride.status}<br><br>
 
-  if (snap.empty) {
-    rideBox.innerHTML = "No rides available 🚫";
-    acceptBtn.style.display = "none";
-    return;
-  }
+        <button onclick="updateRide('${id}','Driver Assigned')">Accept Ride</button>
+        <button onclick="updateRide('${id}','Completed')">Complete Ride</button>
+      </div>
+    `;
+  });
 
-  const doc = snap.docs[0];
-  latestRideId = doc.id;
-  const ride = doc.data();
+  document.getElementById("ridesList").innerHTML = html;
+});
 
-  rideBox.innerHTML = `
-    <strong>Pickup:</strong> ${ride.pickup}<br/>
-    <strong>Dropoff:</strong> ${ride.dropoff}<br/>
-    <strong>Status:</strong> ${ride.status}
-  `;
+
+// UPDATE RIDE STATUS
+function updateRide(id, newStatus) {
+  db.collection("rides").doc(id).update({
+    status: newStatus
+  });
 }
-
-loadRide();
-
-// Accept Ride
-acceptBtn.onclick = async () => {
-
-  await db.collection("rides").doc(latestRideId).update({
-    status: "Driver Assigned"
-  });
-
-  alert("Ride Accepted ✅");
-
-  acceptBtn.style.display = "none";
-  completeBtn.style.display = "block";
-};
-
-// Complete Ride
-completeBtn.onclick = async () => {
-
-  await db.collection("rides").doc(latestRideId).update({
-    status: "Completed",
-    fare: 15.00
-  });
-
-  alert("Ride Completed 🏁");
-
-  window.location.href = "receipt.html";
-};
