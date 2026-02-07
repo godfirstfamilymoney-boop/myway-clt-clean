@@ -26,14 +26,19 @@
     </div>
 
     <!-- Status Dots -->
-    <div class="status-box">
-      <p><span class="dot" id="dotPending"></span> Pending</p>
-      <p><span class="dot" id="dotAssigned"></span> Driver Assigned</p>
-      <p><span class="dot" id="dotCompleted"></span> Ride Completed</p>
-    </div>
+   <div class="ride-info">
 
-    <a href="index.html" class="btn">Back Home</a>
-  </div>
+  <b>Pickup:</b> <span id="pickup"></span><br>
+  <b>Dropoff:</b> <span id="dropoff"></span><br>
+  <b>Status:</b> <span id="statusText"></span>
+
+  <br><br>
+
+  <span id="pendingDot">🟢</span> Pending<br>
+  <span id="driverDot">🟢</span> Driver Assigned<br>
+  <span id="completeDot">🟢</span> Ride Completed
+
+</div>
 
   <script src="status.js"></script>
 </body>
