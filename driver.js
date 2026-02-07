@@ -1,58 +1,97 @@
 alert("driver.js running");
 
-// Firebase (only initialize once)
+// 🔥 Firebase Config (same project as other pages)
 const firebaseConfig = {
   apiKey: "AIzaSyCbSpg1Xh5Cg9fGNgO-tsw__O8Y7VDT_HM",
   authDomain: "myway-clt-final.firebaseapp.com",
   projectId: "myway-clt-final",
 };
 
+// Init safely (prevents double init)
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
+
 const db = firebase.firestore();
+
+// Elements
+const rideInfo = document.getElementById("driverRideInfo");
+const acceptBtn = document.getElementById("acceptRide");
+const completeBtn = document.getElementById("completeRide");
+
+// Hide Complete button first
+completeBtn.style.display = "none";
 
 let currentRideId = null;
 
-// Load latest ride
+// ===============================
+// 🚘 LOAD LATEST RIDE
+// ===============================
 async function loadRide() {
-  const snapshot = await db.collection("rides")
+  const snapshot = await db
+    .collection("rides")
     .orderBy("createdAt", "desc")
     .limit(1)
     .get();
 
-  if (snapshot.empty) return;
+  if (snapshot.empty) {
+    rideInfo.innerText = "No rides yet";
+    return;
+  }
 
   const doc = snapshot.docs[0];
-  const ride = doc.data();
   currentRideId = doc.id;
+  const ride = doc.data();
 
-  document.getElementById("pickup").innerText = ride.pickup;
-  document.getElementById("dropoff").innerText = ride.dropoff;
-  document.getElementById("statusText").innerText = ride.status;
+  rideInfo.innerHTML = `
+    <strong>Pickup:</strong> ${ride.pickup}<br>
+    <strong>Dropoff:</strong> ${ride.dropoff}<br>
+    <strong>Status:</strong> ${ride.status}
+  `;
+
+  // Show correct button based on status
+  if (ride.status === "Pending") {
+    acceptBtn.style.display = "block";
+    completeBtn.style.display = "none";
+  }
+
+  if (ride.status === "Driver Assigned") {
+    acceptBtn.style.display = "none";
+    completeBtn.style.display = "block";
+  }
 }
 
 loadRide();
 
-// Accept Ride
-document.getElementById("acceptRide").onclick = async () => {
+
+// ===============================
+// ✅ ACCEPT RIDE
+// ===============================
+acceptBtn.onclick = async function () {
   if (!currentRideId) return;
 
   await db.collection("rides").doc(currentRideId).update({
     status: "Driver Assigned"
   });
 
-  loadRide();
+  alert("Ride Accepted 🚗");
+
+  loadRide(); // refresh screen
 };
 
-// Complete Ride
-document.getElementById("completeRide").onclick = async () => {
+
+// ===============================
+// 🏁 COMPLETE RIDE
+// ===============================
+completeBtn.onclick = async function () {
   if (!currentRideId) return;
 
   await db.collection("rides").doc(currentRideId).update({
     status: "Completed"
   });
 
+  alert("Ride Completed 🏁");
+
+  // Go to receipt
   window.location.href = "receipt.html";
 };
-
