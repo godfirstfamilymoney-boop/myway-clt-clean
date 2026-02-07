@@ -1,37 +1,58 @@
-// Firebase already initialized before this file
+alert("driver.js running");
 
+// Firebase (only initialize once)
+const firebaseConfig = {
+  apiKey: "AIzaSyCbSpg1Xh5Cg9fGNgO-tsw__O8Y7VDT_HM",
+  authDomain: "myway-clt-final.firebaseapp.com",
+  projectId: "myway-clt-final",
+};
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 const db = firebase.firestore();
 
-// Get latest ride LIVE
-db.collection("rides")
-  .orderBy("createdAt", "desc")
-  .limit(1)
-  .onSnapshot((snapshot) => {
+let currentRideId = null;
 
-    if (snapshot.empty) return;
+// Load latest ride
+async function loadRide() {
+  const snapshot = await db.collection("rides")
+    .orderBy("createdAt", "desc")
+    .limit(1)
+    .get();
 
-    const doc = snapshot.docs[0];
-    const ride = doc.data();
+  if (snapshot.empty) return;
 
-    document.getElementById("pickup").innerText = ride.pickup;
-    document.getElementById("dropoff").innerText = ride.dropoff;
-    document.getElementById("statusText").innerText = ride.status;
+  const doc = snapshot.docs[0];
+  const ride = doc.data();
+  currentRideId = doc.id;
 
-    // Update dots
-    document.getElementById("pendingDot").style.opacity =
-      ride.status === "Pending" ? "1" : "0.3";
+  document.getElementById("pickup").innerText = ride.pickup;
+  document.getElementById("dropoff").innerText = ride.dropoff;
+  document.getElementById("statusText").innerText = ride.status;
+}
 
-    document.getElementById("driverDot").style.opacity =
-      ride.status === "Driver Assigned" ? "1" : "0.3";
+loadRide();
 
-    document.getElementById("completeDot").style.opacity =
-      ride.status === "Completed" ? "1" : "0.3";
+// Accept Ride
+document.getElementById("acceptRide").onclick = async () => {
+  if (!currentRideId) return;
 
-    // Auto go to receipt when completed
-    if (ride.status === "Completed") {
-      setTimeout(() => {
-        window.location.href = "receipt.html";
-      }, 1500);
-    }
+  await db.collection("rides").doc(currentRideId).update({
+    status: "Driver Assigned"
   });
+
+  loadRide();
+};
+
+// Complete Ride
+document.getElementById("completeRide").onclick = async () => {
+  if (!currentRideId) return;
+
+  await db.collection("rides").doc(currentRideId).update({
+    status: "Completed"
+  });
+
+  window.location.href = "receipt.html";
+};
 
