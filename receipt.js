@@ -1,8 +1,8 @@
 // Firebase Config (PUT YOURS)
 const firebaseConfig = {
-  apiKey: "YOUR_KEY",
-  authDomain: "YOUR_DOMAIN",
-  projectId: "YOUR_PROJECT_ID"
+  apiKey: "AIzaSyCbSpg1Xh5Cg9fGNgO-tsw__O8Y7VDT_HM",
+  authDomain: "myway-clt-final.firebaseapp.com",
+  projectId: "myway-clt-final",
 };
 
 firebase.initializeApp(firebaseConfig);
