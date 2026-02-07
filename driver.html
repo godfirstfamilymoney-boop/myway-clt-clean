@@ -2,9 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>MyWay CLT - Driver</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <title>MyWay Driver Panel</title>
   <link rel="stylesheet" href="style.css" />
 
   <!-- Firebase -->
@@ -15,24 +13,16 @@
 <body>
 
   <div class="card">
-    <img src="logo.png" class="logo" />
+    <h1>🚗 Driver Panel</h1>
+    <p>Live Ride Control</p>
 
-    <h1>Driver Dashboard 🚘</h1>
-    <p class="subtitle">Accept the next ride request</p>
+    <div id="ridesList">Loading rides...</div>
 
-    <div id="driverRideInfo" class="ride-info">
-      Loading ride request...
-    </div>
-
-    <button id="acceptRide" class="btn">Accept Ride</button>
-
-    <button id="completeRide" class="btn" style="display:none;">
-      Complete Ride 🏁
-    </button>
-
-    <a href="index.html" class="btn">Back Home</a>
+    <br>
+    <button onclick="location.href='index.html'">Back Home</button>
   </div>
 
   <script src="driver.js"></script>
+
 </body>
 </html>
