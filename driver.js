@@ -7,7 +7,9 @@ const firebaseConfig = {
   projectId: "myway-clt-final",
 };
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 const db = firebase.firestore();
 
 // Load latest ride
