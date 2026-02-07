@@ -1,51 +1,37 @@
-alert("driver.js running");
+// Firebase already initialized before this file
 
-// Firebase config
-const firebaseConfig = {
-  apiKey: "AIzaSyCbSpg1Xh5Cg9fGNgO-tsw__O8Y7VDT_HM",
-  authDomain: "myway-clt-final.firebaseapp.com",
-  projectId: "myway-clt-final",
-};
-
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
 const db = firebase.firestore();
 
-// Load latest ride
-async function loadRide() {
-  const snapshot = await db.collection("rides")
-    .orderBy("createdAt", "desc")
-    .limit(1)
-    .get();
+// Get latest ride LIVE
+db.collection("rides")
+  .orderBy("createdAt", "desc")
+  .limit(1)
+  .onSnapshot((snapshot) => {
 
-  if (snapshot.empty) {
-    document.getElementById("rideInfo").innerText = "No rides yet";
-    return;
-  }
+    if (snapshot.empty) return;
 
-  const doc = snapshot.docs[0];
-  const ride = doc.data();
+    const doc = snapshot.docs[0];
+    const ride = doc.data();
 
-  document.getElementById("rideInfo").innerText =
-    "Pickup: " + ride.pickup +
-    "\nDropoff: " + ride.dropoff +
-    "\nStatus: " + ride.status;
+    document.getElementById("pickup").innerText = ride.pickup;
+    document.getElementById("dropoff").innerText = ride.dropoff;
+    document.getElementById("statusText").innerText = ride.status;
 
-  // Save ride ID
-  window.currentRideId = doc.id;
-}
+    // Update dots
+    document.getElementById("pendingDot").style.opacity =
+      ride.status === "Pending" ? "1" : "0.3";
 
-loadRide();
+    document.getElementById("driverDot").style.opacity =
+      ride.status === "Driver Assigned" ? "1" : "0.3";
 
-// Accept ride
-document.getElementById("acceptRide").onclick = async function () {
-  if (!window.currentRideId) return;
+    document.getElementById("completeDot").style.opacity =
+      ride.status === "Completed" ? "1" : "0.3";
 
-  await db.collection("rides").doc(window.currentRideId).update({
-    status: "Driver Assigned"
+    // Auto go to receipt when completed
+    if (ride.status === "Completed") {
+      setTimeout(() => {
+        window.location.href = "receipt.html";
+      }, 1500);
+    }
   });
 
-  alert("Ride accepted");
-  loadRide();
-};
