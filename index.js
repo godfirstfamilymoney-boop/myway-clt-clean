@@ -1,20 +1,32 @@
-alert("index.js loaded");
+const firebaseConfig = {
+  apiKey: "AIzaSyCbSpg1Xh5Cg9fGNgO-tsw__O8Y7VDT_HM",
+  authDomain: "myway-clt-final.firebaseapp.com",
+  projectId: "myway-clt-final",
+};
 
-// Wait until page fully loads
-window.onload = function () {
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+const db = firebase.firestore();
 
-  const btn = document.getElementById("requestRide");
+document.getElementById("requestRide").onclick = async function () {
 
-  if (!btn) {
-    alert("Button NOT found");
+  const pickup = document.getElementById("pickup").value;
+  const dropoff = document.getElementById("dropoff").value;
+
+  if (!pickup || !dropoff) {
+    alert("Enter pickup & dropoff");
     return;
   }
 
-  btn.onclick = function () {
-    alert("Button clicked — working!");
+  const docRef = await db.collection("rides").add({
+    pickup: pickup,
+    dropoff: dropoff,
+    status: "Pending",
+    createdAt: new Date()
+  });
 
-    // Go to status page
-    window.location.href = "status.html";
-  };
+  localStorage.setItem("rideId", docRef.id);
 
+  window.location.href = "status.html";
 };
