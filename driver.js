@@ -21,21 +21,27 @@ db.collection("rides").doc(rideId)
     "\nStatus: " + ride.status;
 });
 
+// 🔥 AUTO ACCEPT RIDE AFTER PAGE LOAD (TEST MODE)
+setTimeout(async () => {
+  if (!window.currentRideId) return;
 
-// ACCEPT RIDE
-document.getElementById("acceptRide").onclick = async function () {
-
-  await db.collection("rides").doc(rideId).update({
+  await db.collection("rides").doc(window.currentRideId).update({
     status: "Driver Assigned"
   });
-};
+
+  console.log("Driver auto accepted");
+  loadRide();
+}, 2000);
 
 
-// COMPLETE RIDE
-document.getElementById("completeRide").onclick = async function () {
+// 🔥 AUTO COMPLETE RIDE (TEST MODE)
+setTimeout(async () => {
+  if (!window.currentRideId) return;
 
-  await db.collection("rides").doc(rideId).update({
-    status: "Completed",
-    fare: 15
+  await db.collection("rides").doc(window.currentRideId).update({
+    status: "Completed"
   });
-};
+
+  console.log("Ride auto completed");
+}, 5000);
+
