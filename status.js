@@ -41,3 +41,8 @@ db.collection("rides").doc(rideId)
     }, 1500);
   }
 });
+ if (ride.status === "Completed") {
+    setTimeout(() => {
+      window.location.href = "receipt.html";
+    }, 1500);
+  }
