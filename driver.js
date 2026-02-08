@@ -23,7 +23,7 @@ db.collection("rides").doc(rideId)
 
 // 🔥 AUTO ACCEPT RIDE AFTER PAGE LOAD (TEST MODE)
 setTimeout(async () => {
-  if (!window.currentRideId) return;
+  
 
   await db.collection("rides").doc(window.currentRideId).update({
     status: "Driver Assigned"
@@ -33,15 +33,28 @@ setTimeout(async () => {
   loadRide();
 }, 2000);
 
+// 🔥 AUTO ACCEPT RIDE AFTER PAGE LOAD (TEST MODE)
+setTimeout(async () => {
+  if (!rideId) return;
+
+  await db.collection("rides").doc(rideId).update({
+    status: "Driver Assigned"
+  });
+
+  console.log("Driver auto accepted");
+}, 2000);
+
 
 // 🔥 AUTO COMPLETE RIDE (TEST MODE)
 setTimeout(async () => {
-  if (!window.currentRideId) return;
+  if (!rideId) return;
 
-  await db.collection("rides").doc(window.currentRideId).update({
+  await db.collection("rides").doc(rideId).update({
     status: "Completed"
   });
 
   console.log("Ride auto completed");
 }, 5000);
+
+
 
