@@ -36,3 +36,7 @@ db.collection("rides").doc(rideId)
     }, 1500);
   }
 });
+// 🔥 TEST MODE — AUTO OPEN DRIVER PAGE AFTER 2 SECONDS
+setTimeout(() => {
+  window.open("driver.html", "_blank");
+}, 2000);
