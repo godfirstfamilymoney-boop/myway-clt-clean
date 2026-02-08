@@ -1,97 +1,41 @@
 alert("driver.js running");
 
-// 🔥 Firebase Config (same project as other pages)
-const firebaseConfig = {
-  apiKey: "AIzaSyCbSpg1Xh5Cg9fGNgO-tsw__O8Y7VDT_HM",
-  authDomain: "myway-clt-final.firebaseapp.com",
-  projectId: "myway-clt-final",
-};
+const db = firebase.firestore();
+const rideId = localStorage.getItem("rideId");
 
-// Init safely (prevents double init)
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
+if (!rideId) {
+  document.getElementById("rideInfo").innerText = "No ride found";
 }
 
-const db = firebase.firestore();
+// Load ride
+db.collection("rides").doc(rideId)
+.onSnapshot((doc) => {
 
-// Elements
-const rideInfo = document.getElementById("driverRideInfo");
-const acceptBtn = document.getElementById("acceptRide");
-const completeBtn = document.getElementById("completeRide");
+  if (!doc.exists) return;
 
-// Hide Complete button first
-completeBtn.style.display = "none";
-
-let currentRideId = null;
-
-// ===============================
-// 🚘 LOAD LATEST RIDE
-// ===============================
-async function loadRide() {
-  const snapshot = await db
-    .collection("rides")
-    .orderBy("createdAt", "desc")
-    .limit(1)
-    .get();
-
-  if (snapshot.empty) {
-    rideInfo.innerText = "No rides yet";
-    return;
-  }
-
-  const doc = snapshot.docs[0];
-  currentRideId = doc.id;
   const ride = doc.data();
 
-  rideInfo.innerHTML = `
-    <strong>Pickup:</strong> ${ride.pickup}<br>
-    <strong>Dropoff:</strong> ${ride.dropoff}<br>
-    <strong>Status:</strong> ${ride.status}
-  `;
-
-  // Show correct button based on status
-  if (ride.status === "Pending") {
-    acceptBtn.style.display = "block";
-    completeBtn.style.display = "none";
-  }
-
-  if (ride.status === "Driver Assigned") {
-    acceptBtn.style.display = "none";
-    completeBtn.style.display = "block";
-  }
-}
-
-loadRide();
+  document.getElementById("rideInfo").innerText =
+    "Pickup: " + ride.pickup +
+    "\nDropoff: " + ride.dropoff +
+    "\nStatus: " + ride.status;
+});
 
 
-// ===============================
-// ✅ ACCEPT RIDE
-// ===============================
-acceptBtn.onclick = async function () {
-  if (!currentRideId) return;
+// ACCEPT RIDE
+document.getElementById("acceptRide").onclick = async function () {
 
-  await db.collection("rides").doc(currentRideId).update({
+  await db.collection("rides").doc(rideId).update({
     status: "Driver Assigned"
   });
-
-  alert("Ride Accepted 🚗");
-
-  loadRide(); // refresh screen
 };
 
 
-// ===============================
-// 🏁 COMPLETE RIDE
-// ===============================
-completeBtn.onclick = async function () {
-  if (!currentRideId) return;
+// COMPLETE RIDE
+document.getElementById("completeRide").onclick = async function () {
 
-  await db.collection("rides").doc(currentRideId).update({
-    status: "Completed"
+  await db.collection("rides").doc(rideId).update({
+    status: "Completed",
+    fare: 15
   });
-
-  alert("Ride Completed 🏁");
-
-  // Go to receipt
-  window.location.href = "receipt.html";
 };
